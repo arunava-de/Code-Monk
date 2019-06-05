@@ -1,0 +1,47 @@
+N = int(input())
+A = list(map(int,input().split()))
+
+i = 0
+count = 0
+while(2*i+1<N):
+    curr = A[i]
+    left = A[2*i-1]
+    right = A[2*i+1]
+    if right>curr and left<curr:
+        i += 1
+    elif right<curr and left<curr:
+        if left<right:
+            temp = A[i]
+            A[i] = A[2*i+1]
+            A[2*i+1] = temp
+        else:
+            temp = A[i]
+            A[i] = A[2*i+1]
+            A[2*i+1] = temp
+            temp = A[i]
+            A[i] = A[2*i-1]
+            A[2*i-1] = temp
+        count += 1
+        i += 1
+    elif right<curr and left>curr:
+        temp = A[2*i+1]
+        A[2*i+1] = A[2*i-1]
+        A[2*i-1] = temp
+        count += 1
+        i += 1
+    else:
+        if left<right:
+            temp = A[i]
+            A[i] = A[2*i-1]
+            A[2*i-1] = temp
+        else:
+            temp = A[i]
+            A[i] = A[2*i+1]
+            A[2*i+1] = temp
+            temp = A[2*i+1]
+            A[2*i+1] = A[2*i-1]
+            A[2*i-1] = temp
+        i += 1
+        count += 1
+
+print(count)
