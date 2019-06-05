@@ -1,0 +1,69 @@
+from sys import stdin
+ 
+line_index = -1
+lines = stdin.readlines()
+ 
+def get_line():
+	global lines, line_index
+ 
+	line_index += 1
+	return lines[line_index]
+ 
+def process_left(A):
+  stack = []
+  ans = []
+ 
+  idx = 0
+  length = len(A)
+ 
+  while idx < length:
+    if len(stack) == 0:
+      ans.append(-1)
+    else:
+      while stack:
+        if A[stack[-1]] > A[idx]:
+          ans.append(stack[-1] + 1)
+          break
+        stack.pop()
+      else:
+        ans.append(-1)
+ 
+ 
+    stack.append(idx)
+ 
+    idx += 1
+ 
+  return ans
+ 
+def process_right(A):
+  stack, ans = [], []
+ 
+  length = len(A)
+  idx = length - 1
+ 
+  while idx >= 0:
+    if len(stack) == 0:
+      ans.append(-1)
+    else:
+      while stack:
+        if A[stack[-1]] > A[idx]:
+          ans.append(stack[-1] + 1)
+          break
+        stack.pop()
+      else:
+        ans.append(-1)
+    stack.append(idx)
+ 
+    idx -= 1
+ 
+  return ans[::-1]
+ 
+ 
+ 
+n = int(get_line())
+A = [int(x) for x in get_line().split()]
+ 
+left  = process_left(A)
+right = process_right(A)
+ 
+print(' '.join(map(str, map(lambda item: item[0] + item[1], zip(left, right)))))
