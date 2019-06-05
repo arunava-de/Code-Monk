@@ -1,0 +1,22 @@
+import math
+T = int(input())
+for t in range(T):
+    N = int(input())
+    H = list(map(int,input().split()))
+    Hdict = {}
+    for i in range(N):
+        if H[i] in Hdict.keys():
+            Hdict[H[i]] += 1
+        else:
+            Hdict[H[i]] = 1
+    Hcount = []
+    for h in Hdict.keys():
+        Hcount.append(Hdict[h])
+    Hcount = sorted(Hcount)
+    n = len(set(H))
+    diff = Hcount[n-1] - Hcount[0]
+    
+    if diff==0:
+        print(-1)
+    else:
+        print(diff)
