@@ -1,0 +1,30 @@
+N = int(input())
+A = list(map(int,input().split()))
+open = []
+b = 0
+e = 0
+maxlen = 0
+
+while b<N and e<N:    
+    if A[e]<0:
+        if open==[]:
+            b += 1
+            e = b
+        else:
+            if open[-1]!=abs(A[e]):
+                open = []
+                b += 1
+                e = b
+            else:
+                open.pop()
+#                print(open)
+                e += 1
+#                print(b,e)
+                if open==[]:
+                    if (e-b>maxlen):
+                        maxlen = e - b
+    else:
+        open.append(A[e])
+        e += 1
+
+print(maxlen)
