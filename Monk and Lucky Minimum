@@ -1,0 +1,14 @@
+T = int(input())
+for t in range(T):
+	N = int(input())
+	A = list(map(int,input().split()))
+	m = min(A)
+	mincount = 0
+	for a in A:
+		if a==m:
+			mincount += 1
+	# print(mincount)
+	if mincount%2!=0:
+		print("Lucky")
+	else:
+		print("Unlucky")
