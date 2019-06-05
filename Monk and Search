@@ -1,0 +1,41 @@
+N = int(input())
+A = list(map(int,input().split()))
+Q = int(input())
+A.sort()
+
+def search(a,l,r,x,q):
+    if r>=l:
+        mid = l + (r-l)//2
+        if a[mid] == x:
+            if q==0:
+                while a[mid]==x:
+                    if mid==0:
+                        return 0
+                    else:
+                        mid -= 1
+                return mid+1
+            else:
+                while a[mid]==x:
+                    if mid==N-1:
+                        return N
+                    else:
+                        mid += 1
+                return mid
+        elif x<a[mid] and mid==0:
+            return 0
+        elif a[mid]<x and mid==N-1:
+            return N
+        elif a[mid]<x and x<a[mid+1]:
+            return mid+1
+        elif a[mid-1]<x and x<a[mid]:
+            return mid
+        elif a[mid] > x: 
+            return search(a, l, mid-1, x, q)  
+        else: 
+            return search(a, mid + 1, r, x, q) 
+
+for i in range(Q):
+    q, x = list(map(int,input().split()))
+    c = 0  
+    ind = search(A,0,N-1,x,q)
+    print(N-ind)
