@@ -1,0 +1,19 @@
+N,k = list(map(int,input().split()))
+arr = list(map(int,input().split()))
+ind = list(range(N))
+copy = arr[:]
+
+for i in range(N):
+    arr[i] = arr[i]%k
+d = {}
+for i in set(arr):
+    d[i] = []
+for i in range(N):
+        d[arr[i]].append(copy[i]) 
+arr = list(set(arr))
+arr.sort()
+for i in arr:
+    for j in d[i]:
+        print(j,end=" ")
+print("\n")
+
