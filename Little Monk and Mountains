@@ -1,0 +1,38 @@
+N, Q = list(map(int,input().split()))
+I = []
+C = [0]*N
+for i in range(N):
+    l, r = list(map(int,input().split()))
+    I.append([l,r])
+    if i==0:
+        C[i] = r-l + 1
+        continue
+    C[i] = C[i-1] + (r-l) + 1
+    
+for q in range(Q):
+    x = int(input())
+    start = 0
+    end = N - 1
+    while ((end - start) > 1): 
+        mid = (start + end) // 2  
+        if (C[mid] > x): 
+            end = mid - 1
+        else: 
+            start = mid
+    c1 = C[start]
+    c2 = C[end]
+    if x>c1 and x<=c2:
+        l,r = I[end]
+        if end-1>=0:
+            x = x-C[end-1]
+    elif x>c2:
+        l,r = I[end+1]
+        if end>=0:
+            x = x - C[end]
+    elif x<=c1:
+        l,r = I[start]
+        if start-1>=0:
+            x = x - C[start-1]
+#    print(binarySearch(l,r,x))
+    print(l+x-1)
+        
