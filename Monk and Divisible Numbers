@@ -1,0 +1,51 @@
+T = int(input())
+
+def Euclid(A,B):
+    d = 0
+    x = 0
+    y = 0
+    def extendedEuclid(A, B):
+        nonlocal d
+        nonlocal x
+        nonlocal y
+        if B == 0:
+            d = A
+            x = 1
+            y = 0
+        else:
+            extendedEuclid(B, A%B)
+            temp = x
+            x = y
+            y = temp - (A//B)*y
+    extendedEuclid(A,B)
+    return x
+
+def modInverse(A, M):
+    x = Euclid(A,M)
+    return (x%M+M)%M 
+
+def GCD(A, B):
+    if(B==0):
+        return A
+    else:
+        return GCD(B, A % B)
+
+
+def modularExponentiation(x, n, M):
+    result=1
+    while(n>0):
+        if n % 2 ==1:
+            result=(result * x)%M
+        x=(x*x)%M
+        n=n//2
+    return result
+
+for t in range(T):
+	a,b,c = list(map(int,input().split()))
+	m = 1000000007
+	res1 = modularExponentiation(b,c,m)
+# 	a = a%m
+	res2 = GCD(res1,a)%m
+	res3 = modInverse(res2,m)
+	k = (res1 * res3)%m
+	print(k)
