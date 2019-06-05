@@ -1,0 +1,65 @@
+class Tree:	
+    def __init__(self,v=None,l=None,r=None):
+        self.value = v
+        self.left = l
+        self.right = r
+
+    def isempty(self):
+        if self.value == None:
+            return(True)
+        else:
+            return(False)
+	
+    def isleaf(self):
+        if self.value == None:
+            return False
+        if self.left or self.right:
+            return False
+        return True
+    
+    def maxdepth(self):
+        if self.value == None:
+            return 0
+        else:
+            if self.left == None:
+                ld = 0
+            else:
+                ld = self.left.maxdepth()
+            if self.right == None:
+                rd = 0
+            else:
+                rd = self.right.maxdepth()
+            if ld>rd:
+                return ld+1
+            else:
+                return rd+1
+
+class BSTree(Tree):
+
+	def insert(self,v):
+		if self.isempty():
+			self.value = v
+			return
+# 		if self.value == v:
+# 			return
+		if self.value >= v:
+			if self.left:
+				self.left.insert(v)
+			else:
+				self.left = BSTree(v)
+		if self.value < v:
+			if self.right:
+				self.right.insert(v)
+			else:
+				self.right = BSTree(v)
+		return
+
+
+N = int(input())
+vals = list(map(int,input().split()))
+
+BT = BSTree(vals[0])
+for i in range(1,N):
+    BT.insert(vals[i])
+
+print(BT.maxdepth())
