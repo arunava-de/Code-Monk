@@ -1,0 +1,11 @@
+N = int(input())
+A = list(map(int,input().split()))
+T = int(input())
+
+for t in range(T):
+    P, Q = list(map(int,input().split()))
+    count = 0
+    for a in A:
+        if a%P==0 or a%Q==0 or a%(P*Q)==0:
+            count += 1
+    print(count)
