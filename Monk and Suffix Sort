@@ -1,0 +1,9 @@
+S,k = input().split(" ")
+k = int(k)
+N = len(S)
+suf = []
+for i in range(N):
+    suf.append(S[N-i-1:N])
+
+suff = sorted(suf)
+print(suff[k-1])
