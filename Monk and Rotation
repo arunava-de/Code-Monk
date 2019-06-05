@@ -1,0 +1,17 @@
+T = int(input())
+for t in range(T):
+    n,k = list(map(int,input().split()))
+    if k>n:
+        k = k%n
+    l = list(map(int,input().split()))
+    l1 = [0]*n
+    for i in range(0,n):
+        if i+k<n:
+            l1[i+k] = l[i]
+        else:
+            l1[i+k-n] = l[i]
+    s = ""
+    for j in l1:
+        print(j,end=" ")
+    print("\n")
+    
