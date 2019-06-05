@@ -1,0 +1,38 @@
+Q = int(input())
+goblet = []
+end = {1:-1,2:-1,3:-1,4:-1}
+marked = {1:0,2:0,3:0,4:0}
+for q in range(Q):
+    temp = input()
+    if temp[0] == 'D':
+        out = goblet.pop(0)
+        print(out[0],out[1])
+        for e in end.keys():
+            if end[e]!=-1:
+                end[e] -= 1
+                if end[e] == -1:
+                    marked[e] = 0
+    else:
+        temp = list(map(int,temp[1:].split()))
+        x, y = temp
+        if goblet==[]:
+            goblet.append([x,y])
+            marked[x] = 1
+            end[x] += 1
+        elif goblet!=[] and marked[x]==0:
+            goblet.append([x,y])
+            marked[x] = 1
+            end[x] = len(goblet)-1
+        elif goblet!=[] and marked[x]==1:
+            goblet = goblet[0:end[x]+1] + [[x,y]] + goblet[end[x]+1:]
+            end[x] += 1
+            after = []
+            for i in range(end[x],len(goblet)):
+                g = goblet[i][0]
+                if g not in after:
+                    if g!=x:
+                        after.append(g)
+            for a in after:
+                end[a] += 1
+    
+                
