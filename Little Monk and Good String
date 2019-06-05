@@ -1,0 +1,19 @@
+s = input()
+# b = 0
+# e = 0
+l = 0
+n = len(s)
+c = [0]*n
+v = {'a','e','i','o','u'}
+
+for i in range(0,n):
+    if i == 0:
+        if s[i] in v:
+            l = l + 1
+    else:
+        if s[i] in v:
+            l = l + 1
+        else:
+            l = 0
+        c[i] = max(c[i-1],l)
+print(c[n-1])   
