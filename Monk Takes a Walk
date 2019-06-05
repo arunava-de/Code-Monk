@@ -1,0 +1,9 @@
+T = int(input())
+for t in range(T):
+    S = str.lower(input())
+    v = ['a','e','i','o','u']
+    c = 0
+    for s in S:
+        if s in v:
+            c +=1
+    print(c)
