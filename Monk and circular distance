@@ -1,0 +1,31 @@
+import math
+N = int(input())
+P = [0]*N
+for i in range(N):
+    x,y = list(map(int,input().split()))
+    P[i] = x*x + y*y
+
+P.sort()
+Q = int(input())
+for i in range(Q):
+    r = int(input())
+    start = 0
+    end = N - 1
+    while ((end - start) > 1): 
+        mid = (start + end) // 2
+        tp = math.sqrt(P[mid]) 
+  
+        if (tp > (r * 1.0)): 
+            end = mid - 1
+        else: 
+            start = mid 
+  
+    tp1 = math.sqrt(P[start]) 
+    tp2 = math.sqrt(P[end]) 
+  
+    if (tp1 > (r * 1.0)): 
+        print(0)
+    elif (tp2 <= (r * 1.0)): 
+        print(end + 1)
+    else: 
+        print(start + 1)
