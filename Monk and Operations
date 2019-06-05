@@ -1,0 +1,31 @@
+N, M = list(map(int,input().split()))
+RS1 = [0]*N
+CS1 = [0]*M
+RS2 = [0]*N
+CS2 = [0]*M
+F = 0
+A = []
+for i in range(N):
+	A.append(list(map(int,input().split())))
+
+v1, v2, v3, v4 = list(map(int,input().split()))
+
+# print(v1,v2,v3,v4)
+for i in range(N):
+	for j in range(M):
+		RS1[i] += abs(A[i][j])
+		RS2[i] += abs(A[i][j]+v1)
+		CS1[j] += abs(A[i][j])
+		CS2[j] += abs(A[i][j]+v3)
+
+R = 0
+C = 0
+# print(RS)
+# print(CS)
+for i in range(N):
+	R += max(RS1[i],RS2[i],M*abs(v2))
+
+for j in range(M):
+	C += max(CS1[j],CS2[j],N*abs(v4))
+
+print(max(R,C))
