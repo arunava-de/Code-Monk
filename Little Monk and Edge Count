@@ -1,0 +1,41 @@
+N, Q = list(map(int,input().split()))
+G ={}
+for i in range(1,N+1):
+    G[i] = set()
+
+edgelist = []
+for i in range(1,N):
+    y = list(map(int,input().split()))
+    edgelist.append(y)
+    G[y[0]] = G[y[0]] | {y[1]}
+    G[y[1]] = G[y[1]] | {y[0]}
+    
+def bfs(graph, start, v):
+    visited, queue = {v}, [start]
+    while queue:
+        vertex = queue.pop(0)
+        if vertex not in visited:
+            visited.add(vertex)
+            queue.extend(graph[vertex] - visited)
+    visited = visited - {v}
+    return visited
+    
+if Q>N:
+    edgecount = {}
+    
+    for i in range(N-1):
+        e = edgelist[i]
+        visit_a = bfs(G,e[0],e[1])
+        visit_b = bfs(G,e[1],e[0])
+        edgecount[i+1] = len(visit_a)*len(visit_b)
+        
+    for q in range(Q):
+        e = int(input())
+        print(edgecount[e])
+
+else:
+    for q in range(Q):
+        e = edgelist[int(input())-1]
+        visit_a = bfs(G,e[0],e[1])
+        visit_b = bfs(G,e[1],e[0])
+        print(len(visit_a)*len(visit_b))
