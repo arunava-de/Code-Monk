@@ -1,0 +1,39 @@
+N, K, Q = list(map(int,input().split()))
+A = list(map(int,input().split()))
+parents = list(map(int,input().split()))
+
+G = {}
+for k in range(1,N+1):
+    G[k] = set()
+
+for i in range(N-1):
+    k = parents[i]
+#    G[k].append(i+2)
+    G[k] = G[k] | {i+2}
+    G[i+2] = G[i+2] | {k}
+
+def dfs_paths(graph, start, goal):
+    stack = [(start, [start])]
+    while stack:
+        (vertex, path) = stack.pop()
+        for next in graph[vertex] - set(path):
+            if next == goal:
+                yield path + [next]
+            else:
+                stack.append((next, path + [next]))
+                
+for q in range(Q):
+    i, j = list(map(int,input().split()))
+    if i==j:
+        num = A[i-1]
+    else:
+        path = list(dfs_paths(G, i, j))[0]
+        vals = [A[i-1] for i in path]
+        num = ""
+        for v in vals:
+            num = num + str(v)
+    
+    if int(num)%K == 0:
+        print("YES")
+    else:
+        print("NO")
