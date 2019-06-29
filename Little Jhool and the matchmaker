@@ -1,0 +1,39 @@
+T = int(input())
+main = {'l','i','t','e','j','h','o'}
+cands = []
+
+for t in range(T):
+    names = {}
+    N, K = list(map(int,input().split()))
+    girls = list(input().split())
+    i = 0
+    for g in girls:
+        names[i] = g
+        i += 1
+    
+    scores = {}
+    for i in range(N):
+        g = girls[i].lower()
+        c = len(main.intersection(set(g)))
+        if c in scores.keys():
+            scores[c].append(i)
+        else:
+            scores[c] = [i]
+    sort_scores = list(scores.keys())
+    sort_scores.sort()
+    out = []
+    ind = []
+    
+    for s in sort_scores:
+        ind = ind + scores[s]
+    
+    for i in range(K):
+        out.append(names[ind[i]])
+    
+    cands.append(out)        
+    
+for c in cands:
+    for out in c:
+        print(out,end = " ")
+    print()
+    
