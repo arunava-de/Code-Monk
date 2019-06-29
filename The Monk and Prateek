@@ -1,0 +1,37 @@
+import pandas as pd
+
+N = int(input())
+vals = {}
+nums = list(map(int,input().split()))
+
+for i in range(N):
+    s = 0 
+    n = str(nums[i])
+    for d in n:
+        s = s + int(d)
+    hash_val = nums[i]^s
+    if hash_val in vals.keys():
+        vals[hash_val] += 1
+    else:
+        vals[hash_val] = 1
+    
+if len(vals.keys()) == N:
+    print(max(vals.keys()),end = " ")
+    print(0)
+
+else:
+    vals_df = pd.DataFrame(list(vals.items()), index=list(range(len(vals.keys()))))
+    vals_df = vals_df.rename(index=str,columns={0:"hash",1:"freq"})
+    vals_df = vals_df.sort_values(by="freq", ascending = False)
+    
+    maxx = vals_df.iloc[0,1]
+    
+    maxes = vals_df[vals_df['freq']==maxx]
+    res1 = min(maxes['hash'])
+    
+    res2 = 0
+    
+    for f in vals_df["freq"]:
+        res2 = res2 + f - 1
+    
+    print(str(res1) + " " + str(res2))
