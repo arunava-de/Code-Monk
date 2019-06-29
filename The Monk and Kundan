@@ -1,0 +1,30 @@
+T = int(input())
+val = {}
+
+for i in range(97,123):
+    val[chr(i)] = i - 97
+    
+for i in range(1,10):
+    val[str(i)] = 25 + i
+
+val['0'] = 35
+
+for i in range(65,91):
+    val[chr(i)] = 36 + i - 65
+    
+scores = []   
+for t in range(T):
+    S = list(input().split())
+    N = len(S)
+    score = 0
+    for i in range(N):
+        s = S[i]
+        j = 0
+        for c in s:
+            score = score + j + val[str(c)]
+            j += 1
+    
+    scores.append(N*score)
+
+for sc in scores:
+    print(sc)       
