@@ -1,42 +1,43 @@
-class disjset:
+def initialize(D, N):
+    size = list(range(N))
+    for i in range(N):
+        D[i] = i
+        size[i] = 1
+    return size, D
 
-	def __init__(self,N):
-		self.comp = list(range(0,N))
-		self.size = [1]*N
+def root(D, i):
+    while D[i] != i:
+        i = D[i]
+    return i
 
-	def find(self,v):
-		u = v
-		while (self.comp[v] != v):
-			v = self.comp[v]
-		while (u != v):
-			w = self.comp[u]
-			self.comp[u] = v
-			u = w
-		return(v)
+def union(D, size, A, B):
+    root_A = root(D, A)
+    root_B = root(D, B)
+    # if size[root_A] < size[root_B]:
+    #     D[root_A] = D[root_B]
+    #     size[root_B] += size[root_A]
+    # else:
+    #     D[root_B] = D[root_A]
+    #     size[root_A] += size[root_B]
+    if root_A == root_B:
+        pass
+    else:
+        D[root_B] = root_A
+        size[root_A] += size[root_B]
+        size[root_B] = 1
 
-	def merge(self,s,t):
-		if self.size[s] < self.size[t]:
-			self.comp[s] = self.comp[t]
-			self.size[t] = self.size[s] + self.size[t]
-		else:
-			self.comp[t] = self.comp[s]
-			self.size[s] = self.size[s] + self.size[t]
-            
-            
+m = 10**9 + 7
 N, M = list(map(int,input().split()))
-m = 1000007
 
-D = disjset(N)
+D = [0]*N
+size, D = initialize(D, N)
 
 for i in range(M):
     A, B = list(map(int,input().split()))
-    D.merge(A-1,B-1)
-
+    union(D, size, A-1, B-1)
+    
 res = 1
-
 for i in range(N):
-    if D.find(i) == i:
-        res = (res*D.size[i])%m
-
-print(res)
-        
+    res = (res*size[i])%m
+    
+print(res%m)
