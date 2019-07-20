@@ -1,0 +1,60 @@
+def initialize(D, N):
+    size = list(range(N))
+    for i in range(N):
+        D[i] = i
+        size[i] = 1
+    return size, D
+
+def root(D, i):
+    while D[i] != i:
+        D[i] = D[D[i]]
+        i = D[i]
+    return i
+
+def union(D, size, A, B):
+    root_A = root(D, A)
+    root_B = root(D, B)
+    if root_A == root_B:
+        pass
+    else:
+        D[root_B] = root_A
+        size[root_A] += size[root_B]
+        size[root_B] = 1
+        
+N = int(input())
+D = [0]*N
+size, D = initialize(D, N)
+
+M1 = int(input())
+for i in range(M1):
+    A, B = list(map(int,input().split()))
+    union(D, size, A-1, B-1)
+    
+connected_comps = {}
+
+for i in range(N):
+    r = root(D, i)
+    if r in connected_comps.keys():
+        connected_comps[r] = connected_comps[r] | {i}
+    else:
+        connected_comps[r] = {i}
+
+M2 = int(input())
+for i in range(M2):
+    A, B = list(map(int,input().split()))
+    A -= 1
+    B -= 1
+    r1 = root(D, A)
+    r2 = root(D, B)
+    if r1 == r2:
+        connected_comps[r1] = {}
+
+ans = 0
+for r in connected_comps.keys():
+    if len(connected_comps[r])>ans:
+        ans = len(connected_comps[r])
+
+print(ans)
+            
+
+           
