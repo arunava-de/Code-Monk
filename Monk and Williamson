@@ -1,0 +1,68 @@
+Q = int(input())
+scores = []
+curr_max = -10**7
+curr_min = 10**7
+max_pos = -1
+min_pos = -1
+
+for i in range(Q):
+    y = input().split()
+
+    if y[0] == 'Push':
+        val = int(y[1])
+        scores.append(val)
+        l = len(scores)
+        if l==1:
+            curr_max = val
+            curr_min = val
+            max_pos = 0
+            min_pos = 0
+            
+        else:
+            if val>curr_max:
+                curr_max = val
+                max_pos = l-1
+            elif val<curr_min:
+                curr_min = val
+                min_pos = l-1
+    elif y[0] == 'CountHigh':
+        if scores == []:
+            print(-1)
+            continue
+        else:
+            print(scores.count(curr_max))
+    elif y[0] == 'CountLow':
+        if scores == []:
+            print(-1)
+            continue
+        else:
+            print(scores.count(curr_min))
+    else:
+        if scores == []:
+            print(-1)
+            continue
+        print(curr_max - curr_min)
+        if curr_max == curr_min:
+            scores.pop(scores.index(curr_max))
+            if len(scores)==0:
+                curr_max = -10**7
+                max_pos = -1
+                curr_min = 10**7
+                min_pos = -1
+                continue
+            else:
+                curr_max = max(scores)
+                curr_min = min(scores)
+        else:
+            scores.pop(scores.index(curr_max))
+            curr_max = max(scores)
+            scores.pop(scores.index(curr_min))
+            if len(scores)==0:
+                curr_min = curr_max
+                max_pos = 0
+                min_pos = max_pos
+                continue
+            else:
+                curr_min = min(scores)
+                max_pos = scores.index(curr_max)
+                min_pos = scores.index(curr_min)
